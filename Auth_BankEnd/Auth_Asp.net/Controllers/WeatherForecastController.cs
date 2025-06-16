@@ -1,3 +1,4 @@
+using Auth_Asp.net.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Auth_Asp.net.Controllers
@@ -13,7 +14,8 @@ namespace Auth_Asp.net.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger,
+            AppDbContext appDbContext)
         {
             _logger = logger;
         }

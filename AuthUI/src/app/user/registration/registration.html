@@ -6,6 +6,12 @@
       placeholder="FullName"
       formControlName="fullName"
     />
+    <div
+      class="error-feedback"
+      *ngIf="hasDisplayableError('fullName') && form.controls['fullName'].hasError('required')"
+    >
+      Please enter your full name.
+    </div>
   </div>
   <div class="mb-3">
     <input
@@ -13,6 +19,14 @@
       placeholder="Email"
       formControlName="email"
     />
+    <div class="error-feedback" *ngIf="hasDisplayableError('email')">
+      <div *ngIf="form.controls['email'].hasError('required')">
+        Please enter your email address.
+      </div>
+      <div *ngIf="form.controls['email'].hasError('email')">
+        Please enter a valid email address.
+      </div>
+    </div>
   </div>
   <div class="mb-3">
     <input
@@ -20,6 +34,15 @@
       placeholder="Password"
       formControlName="password"
     />
+    <div class="error-feedback" *ngIf="hasDisplayableError('password')">
+      <ng-container [ngSwitch]="form.controls['password'].errors | firstKey">
+        <div *ngSwitchCase="'required'">Please enter your password.</div>
+        <div *ngSwitchCase="'minlength'">At least 6 characters required</div>
+        <div *ngSwitchCase="'pattern'">
+          Enter one or more special characters.
+        </div>
+      </ng-container>
+    </div>
   </div>
   <div class="mb-3">
     <input
@@ -27,6 +50,12 @@
       placeholder="Confirm Password"
       formControlName="confirmPassword"
     />
+    <div
+      class="error-feedback"
+      *ngIf="hasDisplayableError('confirmPassword') && form.controls['confirmPassword'].hasError('passwordMismatch')"
+    >
+      Password doesn't match.
+    </div>
   </div>
   <div class="mt-4">
     <button class="btn btn-success w-100 rounded-3">Registration</button>
